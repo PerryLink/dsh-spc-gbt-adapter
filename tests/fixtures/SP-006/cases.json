@@ -1,0 +1,21 @@
+{
+  "ruleId": "SP-006",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "SP-006-compliant.json",
+      "expect": {
+        "ruleId": "SP-006",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "SP-006-unsafe.json",
+      "expect": {
+        "ruleId": "SP-006",
+        "count": 1
+      }
+    }
+  ]
+}

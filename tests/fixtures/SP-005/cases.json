@@ -1,0 +1,26 @@
+{
+  "ruleId": "SP-005",
+  "configure": {
+    "SP-005": {
+      "threshold": 1.33
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "SP-005-compliant.json",
+      "expect": {
+        "ruleId": "SP-005",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "SP-005-unsafe.json",
+      "expect": {
+        "ruleId": "SP-005",
+        "count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+# 控制图常数与过程能力指数核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ✅ 本规则库能引的是**常数表**：X̄-R 图的控制限系数（A2、D3、D4）与
+#   过程能力指数的定义，其载体是 **GB/T 17989.2—2020《控制图 第2部分：常规控制图》**（采标 ISO）。
+#   ⚠️⚠️ **标准号已于 2026-10-07 更正**（见 rules/evidence/clause-verification-gbt17989.md）：
+#     本规则库原先引 **GB/T 4091《常规控制图》**，但全国标准信息公共服务平台记载
+#     **GB/T 4091—2001 状态为「废止」**（发布 2001-03-07、实施 2001-12-01）。
+#     现行标准为 **GB/T 17989.2—2020**（发布 2020-03-06、**实施 2020-10-01**、状态「现行」）。
+#     ⇒ 继续引 GB/T 4091 即**引用已废止标准**，故已全部替换。
+#     ⚠️ **替换不改变任何规则的强度**：`kind` 与 `severity` 一律未动，
+#        `excerpt` 仍为"本次未取得"（该标准采标 ISO/IEC，平台因版权不提供在线阅读）。
+#   这些系数是**数学常数**，与具体行业无关，因此可以稳定固化。
+#   **但本次核查未取得现行标准的逐字条文**（该标准采标 ISO/IEC，平台因版权不提供在线阅读），
+#   故各条规则的 excerpt 如实写明这一点，
+#   kind 一律为 derived-from-principle（封顶 warn）——**不假称引用了条文**。
+#   常数取值出自通用的常规控制图常数表（A2/D3/D4 随子组大小 n 变化），本规则库按该表固化。
+#
+# ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不判定过程是否受控、是否存在异常趋势、
+#   过程能力是否满足顾客要求**。
+#   "是否受控"要按判异准则（连续点、趋势、链、接近控制限等）逐条判读控制图，
+#   "能力是否足够"取决于顾客或本机构规定的 Cpk 接收准则（常见 1.33／1.67，但**因行业与顾客而异**）。
+#   → 因此本插件只核对**表内算术与常数一致性**：
+#     子组大小与所用控制图类型是否匹配、控制限是否等于中心线±系数×极差、
+#     中心线是否落在上下控制限之间、Cp 与 Cpk 的定义式是否成立、Ppk 是否不大于 Cpk 的常见关系。
+#   → **Cpk 接收准则（cpkTarget）出厂为空**，未配置即进 skipped，绝不静默通过。
+
+plugin: dsh-spc-gbt-adapter
+version: "2026.1"
+
+rules:
+  - id: SP-001
+    title: 控制图台账应填写特性名称与控制图类型
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于控制图选用与标识的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: presenceAny
+        fields: [characteristic, chartType]
+        fix: 补填特性名称与控制图类型；本条只核对是否填写，不判断图种选择是否正确
+    note: >-
+      控制图台账若不写明**控制的是什么特性、用的是哪一种图**，
+      后续的控制限与能力指数就无从核对——因为不同图种的系数与算法完全不同。
+      本次未取得明文条号，故封顶 warn。
+      本条只核对"至少填了一个"，**不判断该特性是否应当作控制图、图种是否选对**。
+
+  - id: SP-002
+    title: 控制限应等于中心线加减常数与极差之积
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于 X̄-R 控制图控制限的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: controlLimits
+        centerField: centerLine
+        rangeField: range
+        uclField: ucl
+        lclField: lcl
+        sizeField: sampleSize
+        coefficients:
+          2: { a2: 1.88, d3: 0, d4: 3.267 }
+          3: { a2: 1.023, d3: 0, d4: 2.574 }
+          4: { a2: 0.729, d3: 0, d4: 2.282 }
+          5: { a2: 0.577, d3: 0, d4: 2.114 }
+          6: { a2: 0.483, d3: 0, d4: 2.004 }
+          7: { a2: 0.419, d3: 0.076, d4: 1.924 }
+          8: { a2: 0.373, d3: 0.136, d4: 1.864 }
+          9: { a2: 0.337, d3: 0.184, d4: 1.816 }
+          10: { a2: 0.308, d3: 0.223, d4: 1.777 }
+        tolerance: 0.005
+    note: >-
+      X̄ 图的控制限是**定义式**：UCL = X̿ + A₂·R̄，LCL = X̿ − A₂·R̄；
+      R 图的控制限为 UCL = D₄·R̄，LCL = D₃·R̄。
+      系数 A₂、D₃、D₄ 是**随子组大小 n 变化的数学常数**，与行业无关，故可按通用常数表固化；
+      本次未取得现行标准逐字条文，故封顶 warn。
+      ⚠️ **本条只按 X̄-R 图的系数表核对**：若台账用的是 X̄-s 图、单值移动极差（I-MR）图、
+      p 图或 c 图，其系数与算法完全不同，本条会报差异——此时请停用本条，
+      或把 coefficients 换成相应图种的系数表（改规则库即可，无需改代码）。
+      本条只核对控制限与中心线、极差、子组大小之间是否**自洽**，
+      **不判断控制限算得对不对、更不判断过程是否受控**。
+
+  - id: SP-003
+    title: 中心线应落在上下控制限之间
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于控制限与中心线关系的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: intervalOrder
+        lowerField: lcl
+        middleField: centerLine
+        upperField: ucl
+    note: >-
+      **下控制限 ≤ 中心线 ≤ 上控制限**是控制图的构造前提：中心线落在限外，
+      图就不成其为控制图。本次未取得明文条号，故封顶 warn。
+      本条只核对三个数的次序，**不判断这些数值是否算得正确**。
+      R 图的 D₃ 常为 0，故下控制限为 0 是正常的，本条不会因此报差异。
+
+  - id: SP-004
+    title: 过程能力指数应符合 Cp 与 Cpk 的定义式
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于过程能力指数的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: capabilityIndex
+        cpField: cp
+        cpkField: cpk
+        uslField: usl
+        lslField: lsl
+        stdDevField: stdDev
+        meanField: mean
+        tolerance: 0.02
+    note: >-
+      两个定义式：**Cp = (USL − LSL) / 6σ**；**Cpk = min(USL − X̄, X̄ − LSL) / 3σ**。
+      属纯算术核对；本次未取得明文条号，故封顶 warn。
+      本条只在**六个字段都有可解析数值**时执行；缺任一项即进 skipped。
+      ⚠️ **σ 的口径**是关键：Cp/Cpk 用**组内标准差**（R̄/d₂ 或 s̄/c₄），
+      Pp/Ppk 用**总体标准差**。台账若把两者混用，本条会报差异——
+      此时应先统一 σ 的取法，而不是改阈值。
+      本条**不判断能力是否足够**：那取决于顾客或本机构规定的接收准则。
+
+  - id: SP-005
+    title: 过程能力应不低于本机构配置的接收准则
+    severity: info
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于过程能力评价的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: thresholdBelow
+        field: cpk
+        threshold: 0
+    note: >-
+      threshold 出厂为 0，表示**未配置**，本条进 skipped。
+      依据说明：**Cpk 的接收准则因行业、顾客与特性重要度而异**（常见 1.33、1.67，
+      关键特性可能更高），本插件**不硬编码任何准则**。
+      配置示例：threshold: 1.33。
+      本条命中只表示"低于你配置的准则"，**不表示过程能力不合格**——
+      是否合格取决于顾客要求与该特性的重要度。
+
+  - id: SP-006
+    title: 控制图台账应能识别产品与工序
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于控制图标识的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: headerPresence
+        fields: [productNo, processName]
+    note: >-
+      控制图若不写明产品与工序，数据无法追溯到被控制的过程，
+      能力指数也就失去了分析对象。本次未取得明文条号，故封顶 warn。
+      配置项 productNo 对应材料顶层的产品编号，processName 对应工序名称。
+      若本机构表式不含其中一个，请把 fields 改为只含实际存在的字段。
+
+  - id: SP-007
+    title: 子组大小应在常数表覆盖的范围内
+    severity: warn
+    basis:
+      document: 《常规控制图》
+      number: GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得）
+      clause: 关于子组大小与常数表的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 17989.2—2020 的逐字原文（该标准采标 ISO/IEC，公开平台因版权不提供在线阅读），本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B04BA7B024E7439B35C21493F4F7C3F9
+    params:
+      check:
+        kind: enum
+        field: sampleSize
+        values: ['2', '3', '4', '5', '6', '7', '8', '9', '10']
+    note: >-
+      常规控制图的系数表按子组大小逐档给出，本规则库固化的系数覆盖 n = 2~10。
+      子组大小落在表外时，SP-002 无法查系数，本条即报出这件事——**避免"算不出来"被读成"没问题"**。
+      本次未取得明文条号，故封顶 warn。
+      ⚠️ 工程实务中常用 n = 4 或 5；若本机构使用更大的子组（如 n = 15），
+      请把所需档位的系数补进 SP-002 的 coefficients，并同步扩大本条的 values。
+      本条只核对档位是否在册，**不判断子组大小选得是否恰当**。
+
+disabled: []
