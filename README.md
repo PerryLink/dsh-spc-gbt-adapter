@@ -1,4 +1,23 @@
-# dsh-spc-gbt-adapter
+# dsh-spc-gbt-adapter — Control chart constants and process capability index consistency check
+
+`dsh-spc-gbt-adapter` reads one control-chart register — rows keyed by the register's own column names, in Chinese or English — and checks that register's own arithmetic and constant-table consistency: that the characteristic and the chart type are recorded, that the control limits follow from the centre line, the dispersion statistic and the chart constants the pack freezes, that the centre line sits between the limits, that the stored Cp and Cpk follow their definitions, that the subgroup size is one the constant table covers, and that the header names the product and the process.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| A chart row leaves both the characteristic and the chart type blank. Is that reported? | Yes. `SP-001` requires at least one of `characteristic` and `chartType` to be filled on every row that carries either column, and reports the row when both are empty. It checks that one of them is recorded, not whether that characteristic ought to be charted or whether the chart type was chosen correctly. |
+| The stored control limits do not match what the centre line, the range and the chart constants give. | `SP-002` recomputes `ucl` and `lcl` from `centerLine`, `range` and the coefficient entry for that `sampleSize`, within a tolerance of 0.005, and reports the row with the stored pair and the expected pair. It checks only that those numbers agree with one another — not that the limits or the range are correct, and never whether the process is in control. The frozen table is the X̄-R one: an X̄-s, I-MR, p or c chart has different coefficients, so disable the rule or replace `coefficients`. |
+| The centre line is stored above the upper control limit. | `SP-003` requires `lcl` ≤ `centerLine` ≤ `ucl` on every row that fills all three, and reports the row where that order fails. It checks the order of the three numbers only, not whether they were computed correctly. A lower limit of 0 is a normal shape for the range chart and is not reported on that account. |
+| Cp and Cpk are in the register, but the report says nothing about them. Why? | `SP-004` runs only on rows that carry `cp` or `cpk` together with `usl`, `lsl`, `stdDev` and `mean`; when no row carries all of them, the rule reports `skipped` rather than passing silently. Where it runs it tests the two definitions, Cp = (USL − LSL) / 6σ and Cpk = min(USL − X̄, X̄ − LSL) / 3σ, within a tolerance of 0.02. A difference usually means the σ convention is mixed up: Cp/Cpk take the within-subgroup standard deviation, Pp/Ppk the overall one. It does not decide whether capability is sufficient. |
+| Is the process capability good enough? | The check does not answer that. `SP-005` only reports a stored `cpk` that falls below the criterion you configure, and it ships with `threshold: 0`, meaning not configured, so it goes to `skipped` instead of inventing a criterion; the usual 1.33 and 1.67 depend on the industry, the customer and how critical the characteristic is. A finding under this rule means the value is below your own criterion, not that the process is unqualified, and the rule is reported at `info` severity. |
+| Our subgroups hold 15 measurements each. What happens? | `SP-007` reports the row: the constant table frozen into the pack covers subgroup sizes 2 to 10 only. With no entry for that size, `SP-002` cannot look the coefficients up either, so it reports that rather than staying silent. The rule checks whether the size is a listed tier, not whether that subgroup size suits the process. To work with larger subgroups, add the tier to `SP-002`'s `coefficients` and widen this rule's `values` — a rule-pack edit, not a code change. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《常规控制图》 | GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得） | SP-001, SP-002, SP-003, SP-004, SP-005, SP-006, SP-007 |
 
 **Boundary:** this plugin checks a **控制图台账** for arithmetic and constant-table consistency — that the
 characteristic and chart type are recorded, that the control limits follow from the centre line, the

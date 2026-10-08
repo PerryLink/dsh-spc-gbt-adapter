@@ -1,4 +1,23 @@
-# dsh-spc-gbt-adapter
+# dsh-spc-gbt-adapter — Constantes de cartas de control y verificación de la coherencia de los índices de capacidad del proceso
+
+`dsh-spc-gbt-adapter` lee un registro de cartas de control —filas organizadas con los nombres de columna del propio registro, en chino o en inglés— y comprueba la coherencia aritmética y de tabla de constantes de ese registro: que se registren la característica y el tipo de carta, que los límites de control se sigan de la línea central, la amplitud y las constantes de carta que el paquete fija, que la línea central quede entre los límites, que el Cp y el Cpk registrados cumplan sus definiciones, que el tamaño del subgrupo sea uno de los cubiertos por la tabla de constantes y que la cabecera indique el producto y el proceso.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| Una fila deja vacíos la característica y el tipo de carta. ¿Se informa de eso? | Sí. `SP-001` exige que, en toda fila que traiga una de esas dos columnas, se rellene al menos uno de `characteristic` y `chartType`, e informa de la fila cuando ambos están vacíos. Comprueba que uno de los dos esté registrado, no si esa característica debería llevarse en una carta ni si el tipo de carta se eligió bien. |
+| Los límites de control registrados no coinciden con lo que dan la línea central, la amplitud y las constantes. | `SP-002` recalcula `ucl` y `lcl` a partir de `centerLine`, `range` y el coeficiente de ese `sampleSize`, con una tolerancia de 0.005, e informa de la fila con el par registrado y el esperado. Solo comprueba que esos números concuerden entre sí: no si los límites o la amplitud son correctos, y nunca si el proceso está bajo control. La tabla fijada es la de la carta X̄-R: una carta X̄-s, I-MR, p o c usa otros coeficientes, así que desactive la regla o sustituya `coefficients`. |
+| La línea central está registrada por encima del límite de control superior. | `SP-003` exige `lcl` ≤ `centerLine` ≤ `ucl` en toda fila que rellene los tres, e informa de la fila cuyo orden falla. Solo comprueba el orden de los tres números, no si se calcularon bien. Un límite inferior de 0 es una forma normal en la carta de amplitudes y no se informa por ese motivo. |
+| El registro trae Cp y Cpk, pero el informe no dice nada de ellos. ¿Por qué? | `SP-004` solo se ejecuta en filas que traigan `cp` o `cpk` junto con `usl`, `lsl`, `stdDev` y `mean`; cuando ninguna fila los trae todos, la regla informa `skipped` en lugar de pasar en silencio. Donde se ejecuta contrasta las dos definiciones, Cp = (USL − LSL) / 6σ y Cpk = min(USL − X̄, X̄ − LSL) / 3σ, con una tolerancia de 0.02. Una diferencia suele significar que se mezcló el criterio de σ: Cp/Cpk usan la desviación típica dentro del subgrupo y Pp/Ppk la global. No decide si la capacidad es suficiente. |
+| ¿Es suficiente la capacidad de este proceso? | Eso no lo responde la comprobación. `SP-005` solo informa de un `cpk` registrado que queda por debajo del criterio que usted configure, y viene con `threshold: 0`, es decir sin configurar, de modo que pasa a `skipped` en vez de inventar un criterio; los habituales 1.33 y 1.67 dependen del sector, del cliente y de la importancia de la característica. Un hallazgo de esta regla significa que el valor está por debajo de su propio criterio, no que el proceso no sea apto, y se informa con severidad `info`. |
+| Nuestros subgrupos tienen 15 mediciones cada uno. ¿Qué ocurre? | `SP-007` informa de la fila: la tabla de constantes fijada en el paquete solo cubre tamaños de subgrupo de 2 a 10. Sin entrada para ese tamaño, `SP-002` tampoco puede consultar los coeficientes, así que también lo informa en lugar de callar. La regla comprueba si el tamaño es un escalón listado, no si ese tamaño de subgrupo conviene al proceso. Para trabajar con subgrupos mayores, añada el escalón a los `coefficients` de `SP-002` y amplíe los `values` de esta regla: es una edición del paquete de reglas, no del código. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 《常规控制图》 | GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得） | SP-001, SP-002, SP-003, SP-004, SP-005, SP-006, SP-007 |
 
 **Boundary:** this plugin checks a **控制图台账** for arithmetic and constant-table consistency — that the
 characteristic and chart type are recorded, that the control limits follow from the centre line, the

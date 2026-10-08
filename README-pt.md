@@ -1,4 +1,23 @@
-# dsh-spc-gbt-adapter
+# dsh-spc-gbt-adapter — Constantes de cartas de controlo e verificação da coerência dos índices de capacidade do processo
+
+`dsh-spc-gbt-adapter` lê um registo de cartas de controlo —linhas organizadas pelos nomes de coluna do próprio registo, em chinês ou em inglês— e verifica a coerência aritmética e de tabela de constantes desse registo: se a característica e o tipo de carta estão registados, se os limites de controlo decorrem da linha central, da amplitude e das constantes de carta que o pacote fixa, se a linha central fica entre os limites, se o Cp e o Cpk registados cumprem as suas definições, se a dimensão do subgrupo é uma das cobertas pela tabela de constantes e se o cabeçalho indica o produto e o processo.
+
+## O que ele responde
+
+| Você pergunta | O que ele responde |
+|---|---|
+| Uma linha deixa vazios a característica e o tipo de carta. Isso é reportado? | Sim. `SP-001` exige que, em cada linha que traga uma dessas duas colunas, esteja preenchido pelo menos um de `characteristic` e `chartType`, e reporta a linha quando ambos estão vazios. Verifica que um deles está registado, não se essa característica deveria ser controlada por carta nem se o tipo de carta foi bem escolhido. |
+| Os limites de controlo registados não batem com o que dão a linha central, a amplitude e as constantes. | `SP-002` recalcula `ucl` e `lcl` a partir de `centerLine`, `range` e do coeficiente desse `sampleSize`, com tolerância de 0.005, e reporta a linha com o par registado e o esperado. Verifica apenas que esses números são coerentes entre si: não se os limites ou a amplitude estão corretos, e nunca se o processo está sob controlo. A tabela fixada é a da carta X̄-R: uma carta X̄-s, I-MR, p ou c usa outros coeficientes, pelo que deve desativar a regra ou substituir `coefficients`. |
+| A linha central está registada acima do limite de controlo superior. | `SP-003` exige `lcl` ≤ `centerLine` ≤ `ucl` em cada linha que preencha os três, e reporta a linha cuja ordem falha. Verifica apenas a ordem dos três números, não se foram bem calculados. Um limite inferior de 0 é uma forma normal na carta de amplitudes e não é reportado por esse motivo. |
+| O registo tem Cp e Cpk, mas o relatório não diz nada sobre eles. Porquê? | `SP-004` só corre em linhas que tragam `cp` ou `cpk` junto com `usl`, `lsl`, `stdDev` e `mean`; quando nenhuma linha traz todos, a regra reporta `skipped` em vez de passar em silêncio. Onde corre, confronta as duas definições, Cp = (USL − LSL) / 6σ e Cpk = min(USL − X̄, X̄ − LSL) / 3σ, com tolerância de 0.02. Uma diferença costuma significar que o critério de σ foi misturado: Cp/Cpk usam o desvio-padrão dentro do subgrupo e Pp/Ppk o global. Não decide se a capacidade é suficiente. |
+| A capacidade deste processo é suficiente? | Isso a verificação não responde. `SP-005` apenas reporta um `cpk` registado abaixo do critério que configurar, e vem com `threshold: 0`, ou seja por configurar, pelo que passa a `skipped` em vez de inventar um critério; os habituais 1.33 e 1.67 dependem do setor, do cliente e da importância da característica. Um achado desta regra significa que o valor está abaixo do seu próprio critério, não que o processo seja inapto, e é reportado com severidade `info`. |
+| Os nossos subgrupos têm 15 medições cada. O que acontece? | `SP-007` reporta a linha: a tabela de constantes fixada no pacote cobre apenas dimensões de subgrupo de 2 a 10. Sem entrada para essa dimensão, `SP-002` também não consegue consultar os coeficientes, pelo que reporta isso em vez de ficar em silêncio. A regra verifica se a dimensão é um escalão listado, não se essa dimensão de subgrupo serve o processo. Para usar subgrupos maiores, acrescente o escalão aos `coefficients` de `SP-002` e alargue os `values` desta regra: é uma edição do pacote de regras, não do código. |
+
+## Normas que segue
+
+| Documento | Número | Regras que o citam |
+|---|---|---|
+| 《常规控制图》 | GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得） | SP-001, SP-002, SP-003, SP-004, SP-005, SP-006, SP-007 |
 
 **Boundary:** this plugin checks a **控制图台账** for arithmetic and constant-table consistency — that the
 characteristic and chart type are recorded, that the control limits follow from the centre line, the
