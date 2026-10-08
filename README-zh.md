@@ -47,8 +47,7 @@ customer's acceptance criterion.**
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
 dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 ```
 

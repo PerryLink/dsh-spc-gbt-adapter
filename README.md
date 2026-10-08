@@ -58,8 +58,7 @@ column names, in Chinese or English — applies a versioned rule pack, and retur
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-spc-gbt-adapter-0.1.0.tgz
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
 dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 ```
 
