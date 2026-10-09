@@ -1,6 +1,14 @@
 # dsh-spc-gbt-adapter — Constantes de cartas de controlo e verificação da coerência dos índices de capacidade do processo
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-spc-gbt-adapter` lê um registo de cartas de controlo —linhas organizadas pelos nomes de coluna do próprio registo, em chinês ou em inglês— e verifica a coerência aritmética e de tabela de constantes desse registo: se a característica e o tipo de carta estão registados, se os limites de controlo decorrem da linha central, da amplitude e das constantes de carta que o pacote fixa, se a linha central fica entre os limites, se o Cp e o Cpk registados cumprem as suas definições, se a dimensão do subgrupo é uma das cobertas pela tabela de constantes e se o cabeçalho indica o produto e o processo.
+
+## Como é a saída
+
+![Terminal demo of dsh-spc-gbt-adapter: real output over its SP-003 fixture](https://raw.githubusercontent.com/PerryLink/dsh-spc-gbt-adapter/main/docs/assets/dsh-spc-gbt-adapter-demo.png)
+
+Saída real deste plugin sobre o seu próprio fixture de teste `SP-003` — não é uma simulação. O pacote de regras não inventa citações, por isso cada achado nomeia a cláusula aplicada e avisa que o seu texto não foi obtido.
 
 ## O que ele responde
 
