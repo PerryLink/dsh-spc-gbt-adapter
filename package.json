@@ -1,6 +1,6 @@
 {
   "name": "dsh-spc-gbt-adapter",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "控制图常数与过程能力指数核对（按 GB/T 4091 的常规控制图常数表核对控制限与 Cp/Cpk 的自洽性，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
