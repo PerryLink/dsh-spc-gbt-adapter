@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-spc-gbt-adapter-hero.png",
+    "kind": "hero",
+    "alt": "dsh-spc-gbt-adapter terminal output",
+    "caption": "Real dsh-spc-gbt-adapter checker output; 31 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-spc-gbt-adapter-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-spc-gbt-adapter terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
