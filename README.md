@@ -4,6 +4,13 @@
 
 `dsh-spc-gbt-adapter` reads one control-chart register — rows keyed by the register's own column names, in Chinese or English — and checks that register's own arithmetic and constant-table consistency: that the characteristic and the chart type are recorded, that the control limits follow from the centre line, the dispersion statistic and the chart constants the pack freezes, that the centre line sits between the limits, that the stored Cp and Cpk follow their definitions, that the subgroup size is one the constant table covers, and that the header names the product and the process.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
+dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-spc-gbt-adapter: real output over its SP-003 fixture](https://raw.githubusercontent.com/PerryLink/dsh-spc-gbt-adapter/main/docs/assets/dsh-spc-gbt-adapter-hero.png)
@@ -83,13 +90,6 @@ column names, in Chinese or English — applies a versioned rule pack, and retur
 | `SP-005` | capability meets your acceptance criterion (off by default) | info | local |
 | `SP-006` | the chart names its product and process | warn | principle |
 | `SP-007` | the subgroup size is one the constant table covers | warn | principle |
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-spc-gbt-adapter
-dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
-```
 
 ## Configuration
 

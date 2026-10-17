@@ -4,6 +4,13 @@
 
 `dsh-spc-gbt-adapter` lê um registo de cartas de controlo —linhas organizadas pelos nomes de coluna do próprio registo, em chinês ou em inglês— e verifica a coerência aritmética e de tabela de constantes desse registo: se a característica e o tipo de carta estão registados, se os limites de controlo decorrem da linha central, da amplitude e das constantes de carta que o pacote fixa, se a linha central fica entre os limites, se o Cp e o Cpk registados cumprem as suas definições, se a dimensão do subgrupo é uma das cobertas pela tabela de constantes e se o cabeçalho indica o produto e o processo.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
+dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
+```
+
 ## Como é a saída
 
 ![Terminal demo of dsh-spc-gbt-adapter: real output over its SP-003 fixture](https://raw.githubusercontent.com/PerryLink/dsh-spc-gbt-adapter/main/docs/assets/dsh-spc-gbt-adapter-hero.png)
@@ -72,13 +79,6 @@ customer's acceptance criterion.**
 ## What it does
 
 A tabela de regras, os campos e o comportamento detalhado estão em [README.md](README.md#what-it-does) (versão principal em inglês). O plugin apenas lista divergências literais frente às cláusulas citadas e indica em `skipped` cada verificação que não pôde ser executada.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-spc-gbt-adapter
-dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
-```
 
 ## Configuration
 

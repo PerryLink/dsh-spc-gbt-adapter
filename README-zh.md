@@ -4,6 +4,13 @@
 
 `dsh-spc-gbt-adapter` 读取一份控制图台账——行按台账自身的列名组织，中英文列名均可——核对这份台账自身的算术与常数表自洽性：特性名称与控制图类型是否填写、控制限是否由中心线、极差与规则库固化的控制图常数推出、中心线是否落在上下控制限之间、填报的 Cp 与 Cpk 是否符合定义式、子组大小是否落在常数表覆盖的档位内、表头是否写明产品与工序。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
+dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-spc-gbt-adapter: real output over its SP-003 fixture](https://raw.githubusercontent.com/PerryLink/dsh-spc-gbt-adapter/main/docs/assets/dsh-spc-gbt-adapter-hero.png)
@@ -72,13 +79,6 @@ customer's acceptance criterion.**
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-spc-gbt-adapter
-dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
-```
 
 ## Configuration
 

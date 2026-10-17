@@ -4,6 +4,13 @@
 
 `dsh-spc-gbt-adapter` एक नियंत्रण चार्ट रजिस्टर पढ़ता है — पंक्तियाँ रजिस्टर के अपने कॉलम नामों से बनी, चीनी या अंग्रेज़ी — और उसी रजिस्टर की अंकगणितीय तथा स्थिरांक-सारणी संगति की जाँच करता है: क्या विशेषता और चार्ट प्रकार दर्ज हैं, क्या नियंत्रण सीमाएँ केंद्र रेखा, परिसर और पैक में स्थिर किए गए चार्ट स्थिरांकों से निकलती हैं, क्या केंद्र रेखा सीमाओं के बीच है, क्या दर्ज Cp और Cpk अपनी परिभाषाओं के अनुरूप हैं, क्या उपसमूह आकार स्थिरांक-सारणी में शामिल है, और क्या हेडर उत्पाद तथा प्रक्रिया बताता है।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-spc-gbt-adapter
+dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-spc-gbt-adapter: real output over its SP-003 fixture](https://raw.githubusercontent.com/PerryLink/dsh-spc-gbt-adapter/main/docs/assets/dsh-spc-gbt-adapter-hero.png)
@@ -72,13 +79,6 @@ customer's acceptance criterion.**
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-spc-gbt-adapter
-dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
-```
 
 ## Configuration
 
