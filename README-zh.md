@@ -40,28 +40,17 @@ dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份 **控制图台账** 的算术与常数表一致性——是否记录特性与控制图类型，控制限是否由中心线、离散统计量与图常数推出，中心线是否落在控制限之间，Cp 与 Cpk 是否符合其定义，子组大小是否为常数表所覆盖的取值，以及控制图是否写明其产品与工序。它**不**判定过程是否处于受控状态、是否存在趋势，或过程能力是否充分。**读图需要模式规则；能力是否充分取决于顾客的验收准则。**
 
-> ### ⚠️ What this pack can and cannot cite
+> ### ⚠️ 本规则库能引用什么、不能引用什么（以英文原文为准）
 >
-> The control-limit coefficients (A₂, D₃, D₄) and the capability-index definitions do have a home:
-> **GB/T 4091《常规控制图》** (identical to the ISO 7870 series). Those coefficients are *mathematical
-> constants* that vary only with subgroup size, which is why they can be frozen into the rule pack. **But the
-> verification pass did not obtain GB/T 4091's verbatim text**, so every rule's `excerpt` says so plainly and
-> every rule stays at `warn` or `info` rather than claiming a quotation.
+> 控制限系数（A₂、D₃、D₄）与能力指数的定义确有出处：**GB/T 4091《常规控制图》**（与 ISO 7870 系列等同）。这些系数是*数学常数*，只随子组大小变化，因此可以固化进规则库。**但核验环节未取得 GB/T 4091 的逐字原文**，所以每条规则的 `excerpt` 都照实写明这一点，每条规则都停留在 `warn` 或 `info`，而不去声称拥有引文。
 >
-> Three limits are worth knowing before trusting a finding:
+> 在相信任何一条发现之前，有三项局限值得了解：
 >
-> - **`SP-002` assumes the X̄-R chart.** An X̄-s, I-MR, p or c chart uses entirely different coefficients, so
->   the rule will report differences. Disable it, or replace `coefficients` with the right table — a rule-pack
->   edit, not a code change.
-> - **The coefficient table covers n = 2…10.** `SP-007` reports any subgroup size outside that range, so
->   "cannot look it up" is never silently read as "no problem".
-> - **`SP-005`'s criterion ships as `0`, meaning "not configured".** Typical values are 1.33 and 1.67, but the
->   right one depends on the industry, the customer and how critical the characteristic is, so the rule
->   reports that it could not run rather than inventing one.
+> - **`SP-002` 假定的是 X̄-R 控制图。** X̄-s、I-MR、p 或 c 控制图使用的系数完全不同，因此该条规则会报出差异。请停用它，或者把 `coefficients` 换成正确的系数表——这是改规则库，不是改代码。
+> - **系数表覆盖 n = 2…10。** `SP-007` 会报出任何超出该范围的子组大小，所以「查不到」永远不会被静默读成「没有问题」。
+> - **`SP-005` 的判定标准出厂为 `0`，含义是「未配置」。** 典型值是 1.33 与 1.67，但哪个才对取决于行业、顾客以及该特性的关键程度，因此该条规则会报告自己无法执行，而不会凭空编一个值。
 >
-> The σ convention matters too: Cp/Cpk use the **within-subgroup** standard deviation while Pp/Ppk use the
-> **overall** one. A mismatch between a ledger's σ and its index is the commonest cause of a `SP-004` finding,
-> which is why the finding says so.
+> σ 的口径也很重要：Cp/Cpk 使用**组内**标准差，而 Pp/Ppk 使用**整体**标准差。台账中的 σ 与其指数不匹配，是 `SP-004` 发现的最常见成因，这也是该条发现会写明这一点的原因。
 
 ## Compatibility
 
