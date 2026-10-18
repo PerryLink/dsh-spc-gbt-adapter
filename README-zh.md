@@ -38,13 +38,7 @@ dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 |---|---|---|
 | 《常规控制图》 | GB/T 17989.2—2020（控制图 第2部分：常规控制图，采标 ISO；替代已废止的 GB/T 4091—2001；条号本次未取得） | SP-001, SP-002, SP-003, SP-004, SP-005, SP-006, SP-007 |
 
-**Boundary:** this plugin checks a **控制图台账** for arithmetic and constant-table consistency — that the
-characteristic and chart type are recorded, that the control limits follow from the centre line, the
-dispersion statistic and the chart constants, that the centre line sits between the limits, that Cp and Cpk
-follow their definitions, that the subgroup size is one the constant table covers, and that the chart names
-its product and process. It does **not** decide whether a process is in control, whether a trend is present,
-or whether capability is sufficient. **Reading a chart needs the pattern rules; sufficiency depends on the
-customer's acceptance criterion.**
+**边界（中文译文，以英文原文为准）：** 本插件核对一份 **控制图台账** 的算术与常数表一致性——是否记录特性与控制图类型，控制限是否由中心线、离散统计量与图常数推出，中心线是否落在控制限之间，Cp 与 Cpk 是否符合其定义，子组大小是否为常数表所覆盖的取值，以及控制图是否写明其产品与工序。它**不**判定过程是否处于受控状态、是否存在趋势，或过程能力是否充分。**读图需要模式规则；能力是否充分取决于顾客的验收准则。**
 
 > ### ⚠️ What this pack can and cannot cite
 >
