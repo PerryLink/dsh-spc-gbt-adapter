@@ -28,6 +28,35 @@ dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `spc_gbt_adapter`
+
+**Input**
+
+~~~json
+{"rows":[{"均值":"10.00","标准差":"0.215","上规格限":"10.60","下规格限":"9.40","Cp":"0.9302","Cpk":"1.50"}]}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-spc-gbt-adapter.SP-004.de09b5a6",
+  "ruleId": "SP-004",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "cpk"
+  },
+  "found": "第 1 行 Cpk 填报 1.5，按 min(USL − X̄, X̄ − LSL) / 3σ 应为 0.9302",
+  "expected": "Cpk = min(USL − X̄, X̄ − LSL) / 3σ",
+  "fix": "核对标准差口径与均值；本条只做算术核对，不判断能力是否足够"
+}
+~~~
+
+*Observed from `dsh-spc-gbt-adapter/tests/fixtures/SP-004/SP-004-unsafe.json`*
+
 | You ask | What it answers |
 |---|---|
 | A chart row leaves both the characteristic and the chart type blank. Is that reported? | Yes. `SP-001` requires at least one of `characteristic` and `chartType` to be filled on every row that carries either column, and reports the row when both are empty. It checks that one of them is recorded, not whether that characteristic ought to be charted or whether the chart type was chosen correctly. |

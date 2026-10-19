@@ -29,6 +29,35 @@ Saída real deste plugin sobre o seu próprio fixture de teste `SP-003` — não
 
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
+#### Saída detalhada
+
+**Ferramenta** `spc_gbt_adapter`
+
+**Entrada**
+
+~~~json
+{"rows":[{"均值":"10.00","标准差":"0.215","上规格限":"10.60","下规格限":"9.40","Cp":"0.9302","Cpk":"1.50"}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-spc-gbt-adapter.SP-004.de09b5a6",
+  "ruleId": "SP-004",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "cpk"
+  },
+  "found": "第 1 行 Cpk 填报 1.5，按 min(USL − X̄, X̄ − LSL) / 3σ 应为 0.9302",
+  "expected": "Cpk = min(USL − X̄, X̄ − LSL) / 3σ",
+  "fix": "核对标准差口径与均值；本条只做算术核对，不判断能力是否足够"
+}
+~~~
+
+*Observado em `dsh-spc-gbt-adapter/tests/fixtures/SP-004/SP-004-unsafe.json`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | Uma linha deixa vazios a característica e o tipo de carta. Isso é reportado? | Sim. `SP-001` exige que, em cada linha que traga uma dessas duas colunas, esteja preenchido pelo menos um de `characteristic` e `chartType`, e reporta a linha quando ambos estão vazios. Verifica que um deles está registado, não se essa característica deveria ser controlada por carta nem se o tipo de carta foi bem escolhido. |

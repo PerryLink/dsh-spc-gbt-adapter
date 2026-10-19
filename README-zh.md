@@ -29,6 +29,35 @@ dsh --profile <name> --dump-config | grep 'dsh-spc-gbt-adapter'
 
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
+#### 详细输出
+
+**工具** `spc_gbt_adapter`
+
+**输入**
+
+~~~json
+{"rows":[{"均值":"10.00","标准差":"0.215","上规格限":"10.60","下规格限":"9.40","Cp":"0.9302","Cpk":"1.50"}]}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-spc-gbt-adapter.SP-004.de09b5a6",
+  "ruleId": "SP-004",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "cpk"
+  },
+  "found": "第 1 行 Cpk 填报 1.5，按 min(USL − X̄, X̄ − LSL) / 3σ 应为 0.9302",
+  "expected": "Cpk = min(USL − X̄, X̄ − LSL) / 3σ",
+  "fix": "核对标准差口径与均值；本条只做算术核对，不判断能力是否足够"
+}
+~~~
+
+*来源 `dsh-spc-gbt-adapter/tests/fixtures/SP-004/SP-004-unsafe.json`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 某行的特性名称与控制图类型都空着，会被报出吗？ | 会。`SP-001` 要求凡是带有这两列之一的行，`characteristic` 与 `chartType` 至少填写一项，两项都空即报出该行。它只核对是否填了一项，不判断该特性是否应当作控制图、图种是否选对。 |
