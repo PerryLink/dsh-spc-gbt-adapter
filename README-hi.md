@@ -3,6 +3,7 @@
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-spc-gbt-adapter?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-spc-gbt-adapter?ref=badge)
 
 `dsh-spc-gbt-adapter` एक नियंत्रण चार्ट रजिस्टर पढ़ता है — पंक्तियाँ रजिस्टर के अपने कॉलम नामों से बनी, चीनी या अंग्रेज़ी — और उसी रजिस्टर की अंकगणितीय तथा स्थिरांक-सारणी संगति की जाँच करता है: क्या विशेषता और चार्ट प्रकार दर्ज हैं, क्या नियंत्रण सीमाएँ केंद्र रेखा, परिसर और पैक में स्थिर किए गए चार्ट स्थिरांकों से निकलती हैं, क्या केंद्र रेखा सीमाओं के बीच है, क्या दर्ज Cp और Cpk अपनी परिभाषाओं के अनुरूप हैं, क्या उपसमूह आकार स्थिरांक-सारणी में शामिल है, और क्या हेडर उत्पाद तथा प्रक्रिया बताता है।
 

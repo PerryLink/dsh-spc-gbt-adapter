@@ -3,6 +3,7 @@
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-spc-gbt-adapter?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-spc-gbt-adapter?ref=badge)
 
 `dsh-spc-gbt-adapter` lê um registo de cartas de controlo —linhas organizadas pelos nomes de coluna do próprio registo, em chinês ou em inglês— e verifica a coerência aritmética e de tabela de constantes desse registo: se a característica e o tipo de carta estão registados, se os limites de controlo decorrem da linha central, da amplitude e das constantes de carta que o pacote fixa, se a linha central fica entre os limites, se o Cp e o Cpk registados cumprem as suas definições, se a dimensão do subgrupo é uma das cobertas pela tabela de constantes e se o cabeçalho indica o produto e o processo.
 
