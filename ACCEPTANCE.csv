@@ -1,0 +1,3 @@
+req_id,metric,threshold,actual,script,evidence_sha256,pass,source,counted
+CHK-SPC-GBT-ADAPTER-A01,vitest 真实运行,33/33,33,npx vitest run,f7b2200b76ccdca38eeeddd64d4c49c0f256a8fab101c91eb7418cf9a105e2b0,true,public/synthetic,false
+CHK-SPC-GBT-ADAPTER-A02,失败用例数,0,0,npx vitest run,f7b2200b76ccdca38eeeddd64d4c49c0f256a8fab101c91eb7418cf9a105e2b0,true,public/synthetic,false
