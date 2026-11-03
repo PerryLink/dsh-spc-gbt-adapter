@@ -1,6 +1,6 @@
 # dsh-spc-gbt-adapter — 控制图常数与过程能力指数核对
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
