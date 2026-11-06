@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-spc-gbt-adapter-flow-light.svg" width="100%" alt="dsh-spc-gbt-adapter 工作流：material → parseMaterial → rulesFile（SP-001 至 SP-007）→ runCheck → report；输出逐条发现与 skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-spc-gbt-adapter-hero-zh-light.webp" width="100%" alt="dsh-spc-gbt-adapter 配图：左列是插件名与两行价值句；右侧是台账第 1 行（Xbar-R-001，n = 5，中心线 10.0000、UCL 10.2885、LCL 9.7115）的控制限图与 A2/D3/D4 常数表，下方是本次运行的 SP-001 差异卡与 SP-005 skipped 卡，报告行为 issues 1 · skipped 1，结论留给审核人">
 </picture>
 
 # dsh-spc-gbt-adapter
@@ -39,6 +39,11 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 `dsh-spc-gbt-adapter` 读取一份控制图台账——行按台账自身的列名组织，中英文列名均可——按版本化规则库核对这份台账自身的算术与常数表自洽性：特性名称与控制图类型是否填写、控制限是否由中心线、极差与规则库固化的控制图常数推出、中心线是否落在上下控制限之间、填报的 Cp 与 Cpk 是否符合定义式、子组大小是否落在常数表覆盖的档位内、表头是否写明产品与工序。
 
 材料是 JSON 或 YAML；工具读取你传入的 `file` 或 `material`，原文件不会被修改。Excel 可先转成 JSON/YAML，对话里也能代转。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="dsh-spc-gbt-adapter 结构图：台账与规则库两条通道汇入 runTableCheck 门控，按能否执行分流成 issues[] 与 skipped[] 两栏，合成同一本结果账本并投影为报告；skipped 的原因可回到规则库重跑">
+</picture>
 
 ## 三步上手
 
@@ -329,7 +334,7 @@ node samples/quickstart/run.mjs --check        # 自带样例（先 build）
 | `rules/evidence/` | 每条引文的核验记录 |
 | `tests/` | vitest；每条规则一对合规/违规夹具 |
 
-自带样例的运行结果可对照 `samples/quickstart/expected/result.json`，截图见 [`docs/assets/quickstart.png`](docs/assets/quickstart.png)。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow），可重复执行；无 UI 插件只出深浅两版流程图 SVG，五语共用。
+自带样例的运行结果可对照 `samples/quickstart/expected/result.json`，截图见 [`docs/assets/quickstart.png`](docs/assets/quickstart.png)。配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成，可重复执行——hero 横幅用 Pillow 画、结构图用手写 SVG 画；旧版流程图与演示图保留在 `docs/assets/` 供外链使用，README 只引用新的 hero 与 flow-v5 结构图（各含深浅双版）。
 
 ## 家族与致谢
 

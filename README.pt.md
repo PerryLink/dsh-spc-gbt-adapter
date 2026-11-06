@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-spc-gbt-adapter-flow-light.svg" width="100%" alt="Fluxo do dsh-spc-gbt-adapter: material → parseMaterial → rulesFile (SP-001 a SP-007) → runCheck → report; a saída são achados e skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-spc-gbt-adapter-hero-en-light.webp" width="100%" alt="dsh-spc-gbt-adapter: à esquerda o nome do plugin e duas frases de valor; à direita, a carta de limites da linha 1 do registro (Xbar-R-001, n = 5, linha central 10.0000, UCL 10.2885, LCL 9.7115) com a tabela de coeficientes A2/D3/D4; abaixo, os cartões SP-001 e SP-005 dessa mesma execução e a linha do relatório issues 1 · skipped 1 — o veredito fica com o revisor">
 </picture>
 
 # dsh-spc-gbt-adapter
@@ -39,6 +39,11 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 `dsh-spc-gbt-adapter` lê um registro de cartas de controlo —linhas organizadas pelos nomes de coluna do próprio registro, em chinês ou em inglês— e verifica a coerência aritmética e de tabela de constantes desse registro: se a característica e o tipo de carta estão registados, se os limites de controlo decorrem da linha central, da amplitude e das constantes de carta que o pacote fixa, se a linha central fica entre os limites, se o Cp e o Cpk registados cumprem as suas definições, se a dimensão do subgrupo é uma das cobertas pela tabela de constantes e se o cabeçalho indica o produto e o processo.
 
 O material é JSON ou YAML; a ferramenta lê o `file` ou o `material` que lhe passa e nunca modifica o original. O Excel pode ser convertido antes para JSON/YAML, também no chat se a plataforma o permitir.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-spc-gbt-adapter: o canal do registro e o do pacote de regras convergem numa comporta runTableCheck que separa, conforme a regra pode ou não executar, em issues[] (executadas) e skipped[] (com motivo); ambas as colunas formam um mesmo livro de resultados projetado por buildView, e um motivo de skipped regressa ao pacote de regras para nova execução">
+</picture>
 
 ## Instalação em três passos
 
@@ -329,7 +334,7 @@ Estrutura de diretórios:
 | `rules/evidence/` | O registo de verificação de cada citação que o pacote faz |
 | `tests/` | vitest; cada regra tem um par de fixtures conforme/violador |
 
-O resultado do exemplo incluído pode ser comparado com `samples/quickstart/expected/result.json`; a captura está em [`docs/assets/quickstart.png`](docs/assets/quickstart.png). As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) e podem ser executadas de novo; para um plugin sem UI o script emite apenas os SVG de fluxo claro/escuro, partilhados pelos cinco idiomas.
+O resultado do exemplo incluído pode ser comparado com `samples/quickstart/expected/result.json`; a captura está em [`docs/assets/quickstart.png`](docs/assets/quickstart.png). As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) e podem ser executadas de novo —Pillow para o banner hero, SVG escrito à mão para o diagrama de estrutura; o antigo diagrama de fluxo de uma só variante e as imagens de demonstração ficam em `docs/assets/` para ligações externas, enquanto os README só referenciam o novo hero e o diagrama flow-v5, cada um em claro e escuro.
 
 ## Família e agradecimentos
 

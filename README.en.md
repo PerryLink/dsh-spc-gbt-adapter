@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-spc-gbt-adapter-flow-light.svg" width="100%" alt="dsh-spc-gbt-adapter workflow: material → parseMaterial → rulesFile (SP-001 to SP-007) → runCheck → report; the output is findings plus skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-spc-gbt-adapter-hero-en-light.webp" width="100%" alt="dsh-spc-gbt-adapter: the plugin name and two value lines on the left; on the right the control-limit chart for ledger row 1 (Xbar-R-001, n = 5, centre 10.0000, UCL 10.2885, LCL 9.7115) with the A2/D3/D4 coefficient table, then the SP-001 finding card and the SP-005 skipped card from that same run, and the report line issues 1 · skipped 1 — the verdict stays with the reviewer">
 </picture>
 
 # dsh-spc-gbt-adapter
@@ -39,6 +39,11 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 `dsh-spc-gbt-adapter` reads one control-chart register — rows keyed by the register's own column names, in Chinese or English — and checks that register's own arithmetic and constant-table consistency: that the characteristic and the chart type are recorded, that the control limits follow from the centre line, the dispersion statistic and the chart constants the pack freezes, that the centre line sits between the limits, that the stored Cp and Cpk follow their definitions, that the subgroup size is one the constant table covers, and that the header names the product and the process.
 
 The material is JSON or YAML; the tool reads the `file` or `material` you pass and never modifies the original. Excel can be converted to JSON/YAML first, in chat if the platform supports it.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="dsh-spc-gbt-adapter structure: the ledger channel and the rule-pack channel merge into one runTableCheck gate, which splits by whether a rule can run at all into issues[] (executed) and skipped[] (reason stated); both columns form one result ledger projected by buildView, and a skipped reason returns to the rule pack for a re-run">
+</picture>
 
 ## Three-step setup
 
@@ -329,7 +334,7 @@ Directory layout:
 | `rules/evidence/` | The verification record for every citation the pack makes |
 | `tests/` | vitest; every rule has a paired compliant/violating fixture |
 
-The bundled sample's result can be compared against `samples/quickstart/expected/result.json`; the screenshot is at [`docs/assets/quickstart.png`](docs/assets/quickstart.png). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) and are safe to re-run; for a no-UI plugin the script emits only the light/dark flow SVGs, shared by all five languages.
+The bundled sample's result can be compared against `samples/quickstart/expected/result.json`; the screenshot is at [`docs/assets/quickstart.png`](docs/assets/quickstart.png). The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) and are safe to re-run — Pillow for the hero banner, hand-written SVG for the structure diagram; the old single-skin flow diagram and the demo images stay in `docs/assets/` for external links, while the READMEs only reference the new hero and the flow-v5 diagram, each in light and dark.
 
 ## Family & thanks
 

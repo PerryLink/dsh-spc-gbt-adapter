@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-dark.svg">
-  <img src="docs/assets/dsh-spc-gbt-adapter-flow-light.svg" width="100%" alt="dsh-spc-gbt-adapter कार्यप्रवाह: material → parseMaterial → rulesFile (SP-001 से SP-007) → runCheck → report; आउटपुट में निष्कर्ष और skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-hero-en-dark.webp">
+  <img src="docs/assets/dsh-spc-gbt-adapter-hero-en-light.webp" width="100%" alt="dsh-spc-gbt-adapter: बाईं ओर प्लगइन का नाम और दो मूल्य-पंक्तियाँ; दाईं ओर रजिस्टर की पंक्ति 1 (Xbar-R-001, n = 5, केंद्र रेखा 10.0000, UCL 10.2885, LCL 9.7115) का सीमा चार्ट और A2/D3/D4 स्थिरांक सारणी; नीचे उसी रन के SP-001 और SP-005 कार्ड तथा रिपोर्ट पंक्ति issues 1 · skipped 1 — निर्णय समीक्षक के पास रहता है">
 </picture>
 
 # dsh-spc-gbt-adapter
@@ -39,6 +39,11 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 `dsh-spc-gbt-adapter` एक नियंत्रण चार्ट रजिस्टर पढ़ता है — पंक्तियाँ रजिस्टर के अपने कॉलम नामों से बनी, चीनी या अंग्रेज़ी — और उसी रजिस्टर की अंकगणितीय तथा स्थिरांक-सारणी संगति की जाँच करता है: क्या विशेषता और चार्ट प्रकार दर्ज हैं, क्या नियंत्रण सीमाएँ केंद्र रेखा, परिसर और पैक में स्थिर किए गए चार्ट स्थिरांकों से निकलती हैं, क्या केंद्र रेखा सीमाओं के बीच है, क्या दर्ज Cp और Cpk अपनी परिभाषाओं के अनुरूप हैं, क्या उपसमूह आकार स्थिरांक-सारणी में शामिल है, और क्या हेडर उत्पाद तथा प्रक्रिया बताता है।
 
 सामग्री JSON या YAML है; उपकरण आपके द्वारा दिए गए `file` या `material` को पढ़ता है और मूल फ़ाइल कभी नहीं बदलता। Excel को पहले JSON/YAML में बदला जा सकता है, चैट में भी अगर प्लेटफ़ॉर्म साथ दे।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-spc-gbt-adapter-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="dsh-spc-gbt-adapter की संरचना: रजिस्टर चैनल और नियम-पैक चैनल एक runTableCheck द्वार में मिलते हैं, जो यह देखकर कि नियम चल सकता है या नहीं, issues[] (चलाए गए) और skipped[] (कारण सहित) में बाँटता है; दोनों स्तंभ एक ही परिणाम-बही बनाते हैं जिसे buildView प्रक्षेपित करता है, और skipped का कारण नियम-पैक में लौटकर पुनः चलने का संकेत देता है">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -329,7 +334,7 @@ node samples/quickstart/run.mjs --check        # साथ दिया नम�
 | `rules/evidence/` | पैक के हर उद्धरण का सत्यापन रिकॉर्ड |
 | `tests/` | vitest; हर नियम के लिए अनुरूप/उल्लंघन फ़िक्स्चर की जोड़ी |
 
-साथ दिए नमूने का परिणाम `samples/quickstart/expected/result.json` से मिलाया जा सकता है; स्क्रीनशॉट [`docs/assets/quickstart.png`](docs/assets/quickstart.png) में है। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से क्रमादेशित रूप से बनती हैं और दोबारा चलाई जा सकती हैं; बिना UI वाले प्लगइन के लिए स्क्रिप्ट केवल हल्के/गहरे प्रवाह SVG बनाती है, जो पाँचों भाषाएँ साझा करती हैं।
+साथ दिए नमूने का परिणाम `samples/quickstart/expected/result.json` से मिलाया जा सकता है; स्क्रीनशॉट [`docs/assets/quickstart.png`](docs/assets/quickstart.png) में है। README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं और दोबारा चलाई जा सकती हैं — hero बैनर के लिए Pillow, संरचना आरेख के लिए हाथ से लिखा SVG; पुराना एक-रूप प्रवाह आरेख और डेमो छवियाँ बाहरी लिंक के लिए `docs/assets/` में रहती हैं, जबकि README केवल नए hero और flow-v5 आरेख का संदर्भ देते हैं, दोनों हल्के और गहरे रूप में।
 
 ## परिवार और आभार
 
