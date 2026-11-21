@@ -45,6 +45,11 @@ O material é JSON ou YAML; a ferramenta lê o `file` ou o `material` que lhe pa
   <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-spc-gbt-adapter: o canal do registro e o do pacote de regras convergem numa comporta runTableCheck que separa, conforme a regra pode ou não executar, em issues[] (executadas) e skipped[] (com motivo); ambas as colunas formam um mesmo livro de resultados projetado por buildView, e um motivo de skipped regressa ao pacote de regras para nova execução">
 </picture>
 
+![dsh-spc-gbt-adapter: execução real de terminal](docs/assets/dsh-spc-gbt-adapter-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instale** (escolha um canal):

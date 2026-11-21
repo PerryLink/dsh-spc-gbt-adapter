@@ -36,6 +36,10 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 
 ## 它是什么
 
+![dsh-spc-gbt-adapter 真实终端运行](docs/assets/dsh-spc-gbt-adapter-demo.gif)
+
+*本仓库一次真实运行的动图回放。*
+
 `dsh-spc-gbt-adapter` 读取一份控制图台账——行按台账自身的列名组织，中英文列名均可——按版本化规则库核对这份台账自身的算术与常数表自洽性：特性名称与控制图类型是否填写、控制限是否由中心线、极差与规则库固化的控制图常数推出、中心线是否落在上下控制限之间、填报的 Cp 与 Cpk 是否符合定义式、子组大小是否落在常数表覆盖的档位内、表头是否写明产品与工序。
 
 材料是 JSON 或 YAML；工具读取你传入的 `file` 或 `material`，原文件不会被修改。Excel 可先转成 JSON/YAML，对话里也能代转。

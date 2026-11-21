@@ -45,6 +45,11 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
   <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="dsh-spc-gbt-adapter की संरचना: रजिस्टर चैनल और नियम-पैक चैनल एक runTableCheck द्वार में मिलते हैं, जो यह देखकर कि नियम चल सकता है या नहीं, issues[] (चलाए गए) और skipped[] (कारण सहित) में बाँटता है; दोनों स्तंभ एक ही परिणाम-बही बनाते हैं जिसे buildView प्रक्षेपित करता है, और skipped का कारण नियम-पैक में लौटकर पुनः चलने का संकेत देता है">
 </picture>
 
+![dsh-spc-gbt-adapter का असली टर्मिनल रन](docs/assets/dsh-spc-gbt-adapter-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (कोई एक चैनल चुनें):

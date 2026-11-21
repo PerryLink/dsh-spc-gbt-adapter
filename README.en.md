@@ -45,6 +45,11 @@ The material is JSON or YAML; the tool reads the `file` or `material` you pass a
   <img src="docs/assets/dsh-spc-gbt-adapter-flow-v5-light.svg" width="100%" alt="dsh-spc-gbt-adapter structure: the ledger channel and the rule-pack channel merge into one runTableCheck gate, which splits by whether a rule can run at all into issues[] (executed) and skipped[] (reason stated); both columns form one result ledger projected by buildView, and a skipped reason returns to the rule pack for a re-run">
 </picture>
 
+![dsh-spc-gbt-adapter: real terminal run](docs/assets/dsh-spc-gbt-adapter-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
+
 ## Three-step setup
 
 1. **Install** (pick one channel):
