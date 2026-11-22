@@ -7,6 +7,8 @@
 
 # dsh-spc-gbt-adapter
 
+Current version `0.2.12`.
+
 **Check a control-chart register before it reaches review — which row, which column, what differs, item by item.**
 
 A conventional control-chart register checker for DeepSeek Harness: it reads one control-chart register, applies 7 rules to the arithmetic and constant-table consistency of its limits, centre line and Cp/Cpk, and lists differences only — it never decides whether a process is in control.
