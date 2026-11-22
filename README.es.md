@@ -11,6 +11,8 @@
 
 Un verificador de registros de cartas de control convencionales para DeepSeek Harness: lee un registro de cartas de control, aplica 7 reglas a la coherencia aritmética y de tabla de constantes de sus límites, línea central y Cp/Cpk, y solo enumera diferencias; nunca decide si un proceso está bajo control.
 
+Última verificación: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalación-en-tres-pasos) · [Configuración](#configuración) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -48,7 +50,6 @@ El material es JSON o YAML; la herramienta lee el `file` o el `material` que le 
 ![dsh-spc-gbt-adapter: ejecución real de terminal](docs/assets/dsh-spc-gbt-adapter-demo.gif)
 
 *Repetición animada de una ejecución real registrada en este repositorio.*
-
 
 ## Instalación en tres pasos
 

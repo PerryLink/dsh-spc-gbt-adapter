@@ -11,6 +11,8 @@
 
 A conventional control-chart register checker for DeepSeek Harness: it reads one control-chart register, applies 7 rules to the arithmetic and constant-table consistency of its limits, centre line and Cp/Cpk, and lists differences only — it never decides whether a process is in control.
 
+Last verified on DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Install](#three-step-setup) · [Configuration](#configuration) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -48,7 +50,6 @@ The material is JSON or YAML; the tool reads the `file` or `material` you pass a
 ![dsh-spc-gbt-adapter: real terminal run](docs/assets/dsh-spc-gbt-adapter-demo.gif)
 
 *Animated replay of a real run recorded in this repository.*
-
 
 ## Three-step setup
 

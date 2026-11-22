@@ -11,6 +11,8 @@
 
 DeepSeek Harness के लिए पारंपरिक नियंत्रण चार्ट रजिस्टर जाँचकर्ता: एक नियंत्रण चार्ट रजिस्टर पढ़ता है, उसकी सीमाओं, केंद्र रेखा और Cp/Cpk की अंकगणितीय तथा स्थिरांक-सारणी संगति पर 7 नियम लागू करता है, और केवल अंतर सूचीबद्ध करता है; यह कभी तय नहीं करता कि कोई प्रक्रिया नियंत्रण में है या नहीं।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -48,7 +50,6 @@ dsh plugin --profile <name> add dsh-spc-gbt-adapter
 ![dsh-spc-gbt-adapter का असली टर्मिनल रन](docs/assets/dsh-spc-gbt-adapter-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
-
 
 ## तीन चरणों में शुरुआत
 
